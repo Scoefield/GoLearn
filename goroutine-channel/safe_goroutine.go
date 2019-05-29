@@ -1,10 +1,16 @@
 package goroutine_channel
 
+/*
+defer 语句的应用场景 —— 释放锁。defer 语句总是要推迟到函数尾部运行，
+所以如果函数逻辑运行时间比较长，这会导致锁持有的时间较长，
+这时使用 defer 语句来释放锁未必是一个好注意。
+*/
 import (
 	"fmt"
 	"sync"
 )
 
+//让字典变的线程安全，就需要对字典的所有读写操作都使用互斥锁保护起来。
 type SafeDict struct {
 	data  map[string]int
 	mutex *sync.Mutex

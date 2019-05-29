@@ -2,6 +2,7 @@ package goroutine_channel
 
 import "fmt"
 
+//线程不安全的字典
 func read(mp map[string]int) {
 	fmt.Println(mp["fruit"])
 }
