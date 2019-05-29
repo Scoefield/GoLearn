@@ -22,5 +22,6 @@ import "testing"
 //}
 
 func TestChMain(t *testing.T) {
-	getChData()
+	//unsafeGo()
+	SafeGo()
 }
