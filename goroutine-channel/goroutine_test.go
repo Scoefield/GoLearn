@@ -22,5 +22,5 @@ import "testing"
 //}
 
 func TestChMain(t *testing.T) {
-	chMain()
+	getChData()
 }
