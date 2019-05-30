@@ -1,4 +1,4 @@
-package go_mongo
+package mongo
 
 import (
 	"fmt"
