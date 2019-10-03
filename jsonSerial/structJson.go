@@ -6,10 +6,10 @@ import (
 )
 
 type Monster struct {
-	Name  string
-	Age   int
-	Sal   float64
-	Skill string
+	Name  string  `json:"name"`
+	Age   int     `json:"age"`
+	Sal   float64 `json:"sal"`
+	Skill string  `json:"skill"`
 }
 
 // 测试结构体序列化
