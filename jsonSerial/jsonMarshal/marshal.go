@@ -22,7 +22,7 @@ func testStruct() {
 		Skill: "Coding",
 	}
 	// 将monster序列化
-	jsonStruct, err := json.Marshal(monster)
+	jsonStruct, err := json.Marshal(&monster)
 	if err != nil {
 		panic(err)
 	}
@@ -37,6 +37,7 @@ func testMap() {
 	student["name"] = "Mike"
 	student["age"] = 32
 	student["address"] = "NewYork"
+	student["skill"] = [2]string{"coding", "dancing"}
 	// 将student序列化
 	jsonMap, err := json.Marshal(&student)
 	if err != nil {
