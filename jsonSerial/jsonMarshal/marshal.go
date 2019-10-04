@@ -21,7 +21,7 @@ func testStruct() {
 		Sal:   13000.0,
 		Skill: "Coding",
 	}
-	// 将monster序列化
+	// 将monster序列化为json字符串
 	jsonStruct, err := json.Marshal(&monster)
 	if err != nil {
 		panic(err)
