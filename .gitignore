@@ -10,3 +10,5 @@ _book/
 *.pdf
 
 game.db.json
+/go.mod
+/go.sum
