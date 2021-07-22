@@ -8,8 +8,8 @@ import (
 )
 
 func init() {
-	errorLog := log.New(os.Stdout, "app", log.LstdFlags)
-	
+	// errorLog := log.New(os.Stdout, "app", log.LstdFlags)
+
 }
 
 func main() {
