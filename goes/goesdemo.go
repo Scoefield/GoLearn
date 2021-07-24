@@ -24,8 +24,10 @@ type Employee struct {
 //初始化
 func init() {
     errorlog := log.New(os.Stdout, "[INIT APP] ", log.LstdFlags)
+	sniffOpt := elastic.SetSniff(false)
+
     var err error
-    client, err = elastic.NewClient(elastic.SetErrorLog(errorlog), elastic.SetURL(host))
+    client, err = elastic.NewClient(elastic.SetErrorLog(errorlog), elastic.SetURL(host), sniffOpt)
     if err != nil {
         panic(err)
     }
@@ -40,7 +42,6 @@ func init() {
         panic(err)
     }
     fmt.Printf("Elasticsearch version %s\n", esversion)
-
 }
 
 /*下面是简单的CURD*/
@@ -49,7 +50,7 @@ func init() {
 func create() {
 
     //使用结构体
-    e1 := Employee{"Jane", "Smith", 32, "I like to collect rock albums", []string{"music"}}
+    e1 := Employee{"Mike", "Jackson", 36, "I like play Basketball", []string{"music"}}
     put1, err := client.Index().
         Index("megacorp").
         Type("employee").
@@ -93,7 +94,8 @@ func delete() {
 
     res, err := client.Delete().Index("megacorp").
         Type("employee").
-        Id("1").
+        // Id("BLUXz3oBjmD7OSv0syk_").
+		Id("1").
         Do(context.Background())
     if err != nil {
         println(err.Error())
@@ -107,8 +109,8 @@ func update() {
     res, err := client.Update().
         Index("megacorp").
         Type("employee").
-        Id("2").
-        Doc(map[string]interface{}{"age": 88}).
+        Id("3").
+        Doc(map[string]interface{}{"last_name": "Jackson"}).
         Do(context.Background())
     if err != nil {
         println(err.Error())
@@ -150,7 +152,7 @@ func query() {
     boolQ := elastic.NewBoolQuery()
     boolQ.Must(elastic.NewMatchQuery("last_name", "smith"))
     boolQ.Filter(elastic.NewRangeQuery("age").Gt(30))
-    res, err = client.Search("megacorp").Type("employee").Query(q).Do(context.Background())
+    res, err = client.Search("megacorp").Type("employee").Query(boolQ).Do(context.Background())
     printEmployee(res, err)
 
     //短语搜索 搜索about字段中有 rock climbing
@@ -159,9 +161,9 @@ func query() {
     printEmployee(res, err)
 
     //分析 interests
-    aggs := elastic.NewTermsAggregation().Field("interests")
-    res, err = client.Search("megacorp").Type("employee").Aggregation("all_interests", aggs).Do(context.Background())
-    printEmployee(res, err)
+    // aggs := elastic.NewTermsAggregation().Field("interests")
+    // res, err = client.Search("megacorp").Type("employee").Aggregation("all_interests", aggs).Do(context.Background())
+    // printEmployee(res, err)
 
 }
 
@@ -182,8 +184,9 @@ func list(size, page int) {
 
 //打印查询到的Employee
 func printEmployee(res *elastic.SearchResult, err error) {
+	fmt.Println("********************************")
     if err != nil {
-        print(err.Error())
+        println(err.Error())
         return
     }
     var typ Employee
@@ -199,5 +202,5 @@ func main() {
     // update()
     // gets()
     // query()
-    // list(1, 3)
+    list(2, 1)
 }
