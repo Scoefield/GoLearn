@@ -2,11 +2,21 @@ package main
 
 import (
 	"fmt"
+	"reflect"
 	"strconv"
 )
 
-func main() {
+type MyRawMessage []byte
 
+func main() {
+	// recoverDemo()
+	a := 8898.9
+	vType := reflect.TypeOf(a)
+	fmt.Println(vType, vType.Name())
+
+}
+
+func recoverDemo() {
 	defer Recover()
 
 	fmt.Println("hello go, this is a test")
@@ -33,7 +43,6 @@ func main() {
 	var inRet int64
 	inRet, _ = strconv.ParseInt(str, 10, 64)
 	fmt.Println(inRet)
-
 }
 
 func Recover() {

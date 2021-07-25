@@ -7,7 +7,8 @@ import (
     "os"
     "reflect"
 
-    "gopkg.in/olivere/elastic.v7"
+    // "gopkg.in/olivere/elastic.v7"
+    "github.com/olivere/elastic"
 )
 
 var client *elastic.Client
@@ -110,7 +111,7 @@ func update() {
         Index("megacorp").
         Type("employee").
         Id("3").
-        Doc(map[string]interface{}{"last_name": "Jackson"}).
+        Doc(map[string]interface{}{"last_name": "Eys"}).
         Do(context.Background())
     if err != nil {
         println(err.Error())
@@ -199,8 +200,8 @@ func printEmployee(res *elastic.SearchResult, err error) {
 func main() {
     // create()
     // delete()
-    // update()
+    update()
     // gets()
     // query()
-    list(2, 1)
+    // list(2, 1)
 }
